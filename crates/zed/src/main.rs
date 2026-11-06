@@ -766,6 +766,7 @@ fn main() {
         encoding_selector::init(cx);
         language_selector::init(cx);
         line_ending_selector::init(cx);
+        aosp_ui::init(cx);
         lsp_command_selector::init(cx);
         toolchain_selector::init(cx);
         theme_selector::init(cx);

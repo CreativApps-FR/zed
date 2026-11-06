@@ -820,6 +820,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
 
 [[package]]
+name = "aosp_ui"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "collections",
+ "db",
+ "fs",
+ "gpui",
+ "project",
+ "remote",
+ "settings",
+ "smol",
+ "tempfile",
+ "theme",
+ "theme_settings",
+ "ui",
+ "util",
+ "workspace",
+]
+
+[[package]]
 name = "approx"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -22416,6 +22437,7 @@ dependencies = [
  "agent_skills",
  "agent_ui",
  "anyhow",
+ "aosp_ui",
  "ashpd",
  "askpass",
  "assets",

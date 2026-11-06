@@ -615,6 +615,7 @@ pub fn initialize_workspace(app_state: Arc<AppState>, cx: &mut App) {
         let pending_keystrokes_indicator =
             cx.new(|cx| which_key::PendingKeystrokesIndicator::new(window, cx));
         let image_info = cx.new(|_cx| ImageInfo::new(workspace));
+        let aosp_status_item = cx.new(|_| aosp_ui::AospStatusItem::new(workspace));
 
         let lsp_button_menu_handle = PopoverMenuHandle::default();
         let lsp_button =
@@ -647,6 +648,7 @@ pub fn initialize_workspace(app_state: Arc<AppState>, cx: &mut App) {
             status_bar.add_right_item(line_ending_indicator, window, cx);
             status_bar.add_right_item(cursor_position, window, cx);
             status_bar.add_right_item(image_info, window, cx);
+            status_bar.add_right_item(aosp_status_item, window, cx);
             // Keep these last so they stay leftmost and can change without moving the other items.
             status_bar.add_right_item(vim_mode_indicator, window, cx);
             status_bar.add_right_item(pending_keystrokes_indicator, window, cx);
@@ -783,6 +785,7 @@ fn initialize_panels(window: &mut Window, cx: &mut Context<Workspace>) -> Task<a
         let git_panel = GitPanel::load(workspace_handle.clone(), cx.clone());
         let channels_panel =
             collab_ui::collab_panel::CollabPanel::load(workspace_handle.clone(), cx.clone());
+        let aosp_panel = aosp_ui::AospPanel::load(workspace_handle.clone(), cx.clone());
         let debug_panel = DebugPanel::load(workspace_handle.clone(), cx);
 
         async fn add_panel_when_ready(
@@ -807,6 +810,7 @@ fn initialize_panels(window: &mut Window, cx: &mut Context<Workspace>) -> Task<a
             add_panel_when_ready(git_panel, workspace_handle.clone(), cx.clone()),
             add_panel_when_ready(channels_panel, workspace_handle.clone(), cx.clone()),
             add_panel_when_ready(debug_panel, workspace_handle.clone(), cx.clone()),
+            add_panel_when_ready(aosp_panel, workspace_handle.clone(), cx.clone()),
             initialize_agent_panel(workspace_handle.clone(), cx.clone()).map(|r| r.log_err()),
         );
 
@@ -6206,6 +6210,7 @@ mod tests {
                 "activity_indicator",
                 "agent",
                 "agents_sidebar",
+                "aosp_ui",
                 "app_menu",
                 "assistant",
                 "assistant2",
